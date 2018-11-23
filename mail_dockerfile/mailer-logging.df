@@ -1,0 +1,14 @@
+FROM mailer-base:0.6
+# 复制文件
+COPY ["./log-impl", "${APPROOT}"]
+RUN chmod a+x ${APPROOT}/${APP} && \
+    chown example:example /var/log
+RUN apt-get update && \
+    apt-get install -y netcat
+# 为接下来的构建步骤指定用户和用户组
+USER example:example
+# 创建存储卷，只能是管理卷
+VOLUME ["/var/log"]
+# 是参数列表，用于入口点执行的命名
+CMD ["/var/log/mailer.log"]
+

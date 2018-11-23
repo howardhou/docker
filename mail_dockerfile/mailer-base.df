@@ -1,0 +1,22 @@
+FROM debian:stretch
+# 作者
+MAINTAINER "houdongdong"
+# 添加example 用户组 和 example用户
+RUN groupadd -r -g 2200 example && \
+	useradd -rM -g example -u 2200 example
+# 定义镜像的环境变量
+ENV APPROOT="/app" \
+	APP="mailer.sh" \
+	VERSION="0.6"
+# 为镜像设置元数据
+LABEL base.name="Mailer Archetype" \
+	  base.versioin="${VERSION}" 
+# 设置默认的工作目录
+WORKDIR $APPROOT
+ADD . $APPROOT
+# 入口点是 /app/mailer.sh
+ENTRYPOINT ["/app/mailer.sh"]
+# 对外开放 3333 端口
+EXPOSE 3333
+# 不要在基础镜像中设置默认用户，否则接下来的实现将不能更新镜像
+# USER example:example
