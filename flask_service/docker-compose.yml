@@ -1,0 +1,10 @@
+version: '3'              # compose file 的版本号
+services:
+  web:                    # 定义服务名称
+    build: .              # 指定 Dockerfile 所在文件夹的路径
+    ports:                # 映射容器端口
+     - "8000:5000"
+    #volumes:
+    # - .:/code
+  redis:
+    image: "redis:alpine" # 使用官方的redis 镜像
