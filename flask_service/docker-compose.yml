@@ -1,10 +1,18 @@
 version: '3'              # compose file 的版本号
 services:
-  web:                    # 定义服务名称
-    build: .              # 指定 Dockerfile 所在文件夹的路径
-    ports:                # 映射容器端口
-     - "8000:5000"
-    #volumes:
-    # - .:/code
-  redis:
-    image: "redis:alpine" # 使用官方的redis 镜像
+  web:
+    image: 10.51.2.51:5000/houdongdong/flask-app
+    deploy:
+      replicas: 5
+      resources:
+        limits:
+          cpus: "0.1"
+          memory: 50M
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "4000:5000"
+    networks:
+      - webnet
+networks:
+  webnet:
