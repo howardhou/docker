@@ -1,0 +1,25 @@
+version: '3'             
+services:
+  registry:
+    image: registry:2
+    deploy:
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "5000:5000"
+    volumes:
+      - "/root/registry:/var/lib/registry"
+    networks:
+      - rongziidc
+  registry-web:
+    image: hyper/docker-registry-web
+    ports:
+      - "5001:8080"
+    environment:
+      - REGISTRY_URL=http://registry:5000/v2/
+      - REGISTRY_NAME=localhost:5000
+    networks:
+      - rongziidc
+networks:
+  rongziidc:
+
