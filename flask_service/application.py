@@ -12,7 +12,7 @@ cache = redis.Redis(host='redis', port=6379, db=0)
 @app.route('/')
 def index():
   try:
-    visits = redis.incr("counter")
+    visits = cache.incr("counter")
   except:
     visits = "<i>cannot connect to Redis, counter disabled</i>"
 

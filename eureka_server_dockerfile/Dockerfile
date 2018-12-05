@@ -8,7 +8,7 @@ RUN groupadd -r -g 2200 example && \
 	useradd -rM -g example -u 2200 example
 
 # 环境变量
-ENV HOSTNAME="eureka1.rongziidc.com" \
+ENV HOSTNAME="eureka1" \
     EUREKA_SERVER="eureka2"
 	
 # 为镜像设置元数据
